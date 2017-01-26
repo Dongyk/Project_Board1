@@ -18,13 +18,6 @@
 	#signup{
 		width: 200px;
 	}
-	
-	.phone-div input[type="text"]{
-		width: 70px;
-	}
-	.phone-div option{
-		width: 90px;
-	}
 	@MEDIA (max-width: 992px) {
 		.contents6{
 			width: 870px;
@@ -99,15 +92,9 @@
 				<!-- Text input-->
 					<div class="form-group phone-div">
 				  		<label class="col-xs-4 control-label" for="phonenum">핸드폰번호</label>
-				  		<div class="col-xs-2" style="margin: 0;">  
-				  			<select name="phone1" id="phone1" class="form-control" required>
-								<option value="010" selected="selected">010</option>
-								<option value="011">011</option>
-								<option value="070">070</option>
-							</select>
-						</div>
-						<div class="col-xs-1"><input id="phone2" name="phone2" type="text" class="form-control" onkeypress="javascript:onlyNumber()" required /></div>	
-						<div class="col-xs-1"><input id="phone3" name="phone3" type="text" class="form-control" onkeypress="javascript:onlyNumber()" required/></div>				  		 
+				  		<div class="col-xs-4" style="margin: 0;">  
+				  			<input id="phone" name="phone" type="text" class="form-control" onkeypress="javascript:onlyNumber()" required />
+						</div>				  		 
 					</div>
 	
 				<!-- Button -->
