@@ -131,8 +131,8 @@
 			
 		});
 		function idCheck(){
-			var inputId = $("#user_id").val();
-			if(inputId ==""){
+			var id = $("#user_id").val();
+			if(id ==""){
 				alert("아이디를 입력해주세요");
 				$("#user_id").focus();
 			}else{
@@ -140,7 +140,7 @@
 				url:"idcheck.do",
 				method:"get",
 				dataType:"JSON",
-				data:{inputId:inputId},
+				data:{id:id},
 				success:function(data){
 					if(data.canUse){
 						alert("사용할 수 없습니다.");

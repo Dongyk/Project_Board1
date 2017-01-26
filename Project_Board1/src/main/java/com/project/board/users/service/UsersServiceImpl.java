@@ -2,6 +2,8 @@ package com.project.board.users.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +23,10 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public boolean idCheck(String id) {
-		// TODO Auto-generated method stub
-		return false;
+	public void idCheck(String id,HttpServletRequest request) {
+		boolean canUse = usersDao.idCheck(id);
+		
+		request.setAttribute("canUse", canUse);
 	}
 
 	@Override

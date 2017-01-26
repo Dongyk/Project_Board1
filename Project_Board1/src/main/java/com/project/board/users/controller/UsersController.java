@@ -1,9 +1,13 @@
 package com.project.board.users.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.board.users.dto.UsersDto;
 import com.project.board.users.service.UsersService;
@@ -12,6 +16,13 @@ import com.project.board.users.service.UsersService;
 public class UsersController {
 	@Autowired
 	private UsersService usersService;
+	
+	@RequestMapping("/users/idcheck")
+	public String idcheck(@RequestParam String id,HttpServletRequest request){
+		usersService.idCheck(id,request);
+		
+		return "users/idcheck";
+	}
 	
 	@RequestMapping("/users/signupform")
 	public String signupform(){
@@ -23,6 +34,18 @@ public class UsersController {
 		usersService.insert(dto);
 		
 		return "redirect:/home.do";
+	}
+	
+	@RequestMapping("/users/signin")
+	public String signin(@ModelAttribute UsersDto dto,HttpSession session){
+		session.invalidate();
+		boolean success = usersService.isValid(dto);
+		if(success){
+			return "/users/signupform.do";
+		}else{
+			session.setAttribute("id", dto.getId());
+			return "redirect:/home.do";
+		}
 	}
 }
 

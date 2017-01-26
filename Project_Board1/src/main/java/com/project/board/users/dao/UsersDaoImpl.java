@@ -21,15 +21,19 @@ public class UsersDaoImpl implements UsersDao{
 	}
 
 	@Override
-	public void idCheck(String id) {
-		// TODO Auto-generated method stub
-		
+	public boolean idCheck(String id) {
+		String resultId =session.selectOne("users.existId", id);
+		if(resultId==null){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 	@Override
-	public void isValid(UsersDto dto) {
+	public boolean isValid(UsersDto dto) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
