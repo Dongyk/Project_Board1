@@ -31,7 +31,7 @@
 <!-- Header -->
 <header class="head">
 	<div class="box">
-		<img src="${pageContext.request.contextPath }/resource/image/3.png">
+		<img src="${pageContext.request.contextPath }/resources/images/3.png">
 	</div>
 </header>
 <!-- navi bar -->
