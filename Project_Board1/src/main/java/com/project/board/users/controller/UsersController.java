@@ -38,13 +38,15 @@ public class UsersController {
 	
 	@RequestMapping("/users/signin")
 	public String signin(@ModelAttribute UsersDto dto,HttpSession session){
-		session.invalidate();
+		if(session.getAttribute("id")!=null){
+			session.invalidate();
+		}
 		boolean success = usersService.isValid(dto);
 		if(success){
-			return "/users/signupform.do";
-		}else{
 			session.setAttribute("id", dto.getId());
 			return "redirect:/home.do";
+		}else{
+			return "users/signupform";
 		}
 	}
 }
