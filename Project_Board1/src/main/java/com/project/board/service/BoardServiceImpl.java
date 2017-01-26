@@ -45,4 +45,39 @@ public class BoardServiceImpl implements BoardService {
 		return mView;
 	}
 
+	@Override
+	public void insert(BoardDto dto) {
+		boardDao.insert(dto);
+		
+	}
+
+	@Override
+	public void update(BoardDto dto) {
+		boardDao.update(dto);
+		
+	}
+
+	@Override
+	public void delelte(int num) {
+		boardDao.delete(num);
+		
+	}
+
+	@Override
+	public ModelAndView updateForm(HttpServletRequest request, int num) {
+		//수정할 글정보를 얻어온다. 
+		BoardDto dto=boardDao.getData(num);
+		//수정할 글정보를 ModelAndView 객체에 담고 
+		ModelAndView mView=new ModelAndView();
+		mView.addObject("dto", dto);
+		//리턴해준다. 
+		return mView;
+	}
+
+	@Override
+	public ModelAndView insertForm(int b_group) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

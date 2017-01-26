@@ -31,9 +31,7 @@
 	<jsp:include page="/loginNav.jsp"></jsp:include>
 	<div class="m_body">
 		<div class="contents6">
-		<c:if test="${!empty id }">
 			<button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom newBtn" onclick="location.href='insertform.do?b_group=${b_group}'">새글 추가</button>	  
-	    </c:if>
 	    	<c:forEach var="tmp" items="${list }">
 	    	<div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
 	        	<span class="w3-right w3-opacity">${tmp.regdate }</span> <!--//작성 시간 출력-->
@@ -52,24 +50,15 @@
 					<img class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px;" src="${pageContext.request.contextPath }/upload/${tmp.image}" />
 				</div><br/><br/>
 				</c:if>
-				<div class="commend_div">
-					<button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom">댓글</button>
-				
-				</div>
-				<c:if test="${id ne null}">
-	        	<button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom" onclick="commend();">댓글</button> 
-	   			</c:if>
-	   			<c:if test="${id eq tmp.writer }">
+	        	<button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom" onclick="commend();">댓글</button> 			
 	   			<button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom" onclick="location.href='board_update.do?num=${tmp.num}';">수정</button> 
-	   			<button type="button" class="w3-btn w3-theme-d3 w3-margin-bottom" onclick="location.href='board_delete.do?num=${tmp.num11}';">삭제</button> 
-	   			</c:if>
+	   			<button type="button" class="w3-btn w3-theme-d3 w3-margin-bottom" onclick="location.href='board_delete.do?num=${tmp.num}';">삭제</button> 
 	   		</div>
 			</c:forEach>
-			<c:if test="${endPageNum lt endRowNum }">
+			
 				<input type="hidden" id="hasParam" value="${param }">
 				<button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom addBtn"
 				onclick="location.href='board1.do?b_group=${b_group }&endPageNum=${endPageNum+1 }'">더보기</button>   
-   			</c:if>
 	   	</div>   
 	</div>
 </div>

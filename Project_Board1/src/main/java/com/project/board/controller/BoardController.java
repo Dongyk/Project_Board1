@@ -19,6 +19,25 @@ public class BoardController {
 	@RequestMapping("/board/board1")
 	public ModelAndView board(HttpServletRequest request, @RequestParam(defaultValue="1") int b_group){
 		ModelAndView mView = boardService.getList(request, b_group);
+		mView.setViewName("board/board1");
+		return mView;
+	}
+	@RequestMapping("/board/insertform")
+	public ModelAndView insertForm(HttpServletRequest request, @RequestParam(defaultValue="1") int b_group){
+		ModelAndView mView = new ModelAndView();
+		mView.addObject("b_group", b_group);
+		mView.setViewName("board/insertform");
+		return mView;
+	}
+	
+	@RequestMapping("/board/board_update")
+	public ModelAndView update(HttpServletRequest request, @RequestParam(defaultValue="1") int num){
+		ModelAndView mView = boardService.getList(request, num);
+		return mView;
+	}
+	@RequestMapping("/board/board_delete")
+	public ModelAndView delete	(HttpServletRequest request, @RequestParam(defaultValue="1") int num){
+		ModelAndView mView = boardService.getList(request, num);
 		return mView;
 	}
 }
