@@ -29,7 +29,7 @@
 	<div class="contntview">
 		<div class="contents6">
 			<div id="signup"><h4>내정보</h4></div>
-			<form action="info.do" class="form-horizontal" method="post">
+			<form action="update.do" class="form-horizontal" method="post">
 				<fieldset>
 	
 			<!-- Text input-->

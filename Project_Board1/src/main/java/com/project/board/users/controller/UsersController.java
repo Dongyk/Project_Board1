@@ -67,6 +67,16 @@ public class UsersController {
 		
 		return mView;
 	}
+	
+	@RequestMapping("/users/private/update")
+	public ModelAndView update(@ModelAttribute UsersDto dto){
+		usersService.update(dto);
+		
+		return new ModelAndView("redirect:/users/private/infoform.do?id="+dto.getId());
+	}
+	
+	
+	
 }
 
 
