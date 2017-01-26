@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
-
+	<select id="getList" parameterType="com.project.board.dto.BoardDto" resultType="com.project.board.dto.BoardDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM rnum
+			FROM (SELECT num,b_group,writer,title,content, image, regdate
+				  FROM t_board
+					<where>
+						<if test="writer != null">
+							OR writer LIKE '%'||#{writer}||'%'
+						</if>
+						<if test="title != null">
+							OR title LIKE '%'||#{title}||'%'
+						</if>
+						<if test="content != null">
+							OR content LIKE '%'||#{content}||'%'
+						</if>
+					</where>
+				  ORDER BY num DESC
+				  ) result1
+			)
+		WHERE
+		<![CDATA[ rnum >= #{startRowNum} AND rnum <= #{endRowNum} ]]>
+	</select>
+	
+	<select id="getCount" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM t_board
+	
+	</select>	
 </mapper>

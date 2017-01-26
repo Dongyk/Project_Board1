@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8"/>
 <title>views/board/total_board.jsp</title>
-<!-- <jsp:include page="/myresource.jsp"></jsp:include> -->
+<jsp:include page="/myresource.jsp"></jsp:include>
 </head>
 <style>
 	.contents6{
