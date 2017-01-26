@@ -34,6 +34,15 @@ public class BoardDaoImpl implements BoardDao{
 		return list;
 	}
 
+
+	@Override
+	public List<BoardDto> getTotal_image() {
+		
+		List<BoardDto> list = session.selectList("board.getTotal_image");
+		
+		return list;
+	}
+
 	
 	
 }

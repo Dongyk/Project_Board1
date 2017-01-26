@@ -9,6 +9,7 @@ public interface BoardDao {
 	// 전체 글 갯수 리턴해주는 메소드
 	public int getCount();
 	
+	public List<BoardDto> getTotal_image();
 }
 
 

@@ -30,4 +30,18 @@
 		FROM t_board
 	
 	</select>	
+	
+	
+	<select id="getTotal_image" resultType="com.project.board.dto.BoardDto">
+		SELECT image
+		FROM t_board
+		ORDER BY num DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
 </mapper>
