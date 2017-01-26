@@ -1,0 +1,29 @@
+.newBtn{
+   font-size: 40px;
+}
+textarea{
+   border-style: hidden;
+   background-color:transparent;
+}
+   .content{ 
+   border: 1px solid blue;
+}
+.comment textarea{
+   width:80%;
+   background-color: #fff;
+}
+.comment form{
+   display: none;
+}
+.comment{
+   position: relative;
+}
+.comment .reply_icon{
+   position: absolute;
+   width: 20px;
+   height: 20px;
+   top:0;
+   left:-20px;
+   border-left: 2px solid green;
+   border-bottom: 2px solid green;
+}
