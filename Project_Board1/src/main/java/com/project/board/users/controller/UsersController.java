@@ -49,6 +49,13 @@ public class UsersController {
 			return "users/signupform";
 		}
 	}
+	
+	@RequestMapping("/users/signout")
+	public String signout(HttpSession session){
+		session.invalidate();
+		
+		return "redirect:/home.do";
+	}
 }
 
 
