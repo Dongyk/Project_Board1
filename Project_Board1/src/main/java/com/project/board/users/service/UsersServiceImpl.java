@@ -38,8 +38,9 @@ public class UsersServiceImpl implements UsersService{
 
 	@Override
 	public UsersDto getData(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		UsersDto dto =usersDao.getData(id);
+		
+		return dto;
 	}
 
 	@Override

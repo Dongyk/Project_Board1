@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.project.board.users.dto.UsersDto;
 import com.project.board.users.service.UsersService;
@@ -56,22 +57,16 @@ public class UsersController {
 		
 		return "redirect:/home.do";
 	}
+	
+	@RequestMapping("/users/private/infoform")
+	public ModelAndView infoform(@RequestParam String id){
+		UsersDto dto =usersService.getData(id);
+		ModelAndView mView = new ModelAndView();
+		mView.addObject("dto", dto);
+		mView.setViewName("users/private/infoform");
+		
+		return mView;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

@@ -66,7 +66,7 @@
 	});
 	
 	$("#infoBtn").click(function(){
-		location.href="${pageContext.request.contextPath }/users/infoform.do?id=${id}"
+		location.href="${pageContext.request.contextPath }/users/private/infoform.do?id=${id}"
 		return false;
 	})
 	
