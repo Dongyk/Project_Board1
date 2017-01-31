@@ -110,4 +110,31 @@
 			WHERE b_group = #{b_group} 
 			ORDER BY regdate DESC)
 	</select>
+	<select id="getList1" parameterType="com.project.board.dto.BoardDto" resultType="com.project.board.dto.BoardDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM rnum
+			FROM (SELECT num,b_group,writer,title,content, image, regdate
+				  FROM t_board
+					<where>
+						<if test="writer != null">
+							OR writer LIKE '%'||#{writer}||'%'
+						</if>
+						<if test="title != null">
+							OR title LIKE '%'||#{title}||'%'
+						</if>
+						<if test="content != null">
+							OR content LIKE '%'||#{content}||'%'
+						</if>
+					</where>
+				  ORDER BY num DESC
+				  ) result1
+			)
+		WHERE
+		<![CDATA[ rnum >= #{startRowNum} AND rnum <= #{endRowNum} ]]>
+	</select>
+	<select id="getCount1" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM t_board	
+	</select>	
 </mapper>

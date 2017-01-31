@@ -16,4 +16,8 @@ public interface BoardService {
 	public void update(BoardDto dto);
 	
 	public void delete(int num);
+
+	// 글목록 리턴해주는 메소드
+	public ModelAndView getList1(HttpServletRequest request, int pageNum);
+
 }

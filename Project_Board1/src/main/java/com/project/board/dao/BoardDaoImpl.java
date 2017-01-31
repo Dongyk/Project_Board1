@@ -2,6 +2,7 @@ package com.project.board.dao;
 
 import java.util.List;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -67,8 +68,28 @@ public class BoardDaoImpl implements BoardDao {
 		List<BoardDto> list=session.selectList("board.getTotal_image");
 		return list;
 	}
+	
+	@Override
+	public int getCount1() {		
+		int count=session.selectOne("board.getCount1");
+		return count;
+	}
+	@Override
+	public List<BoardDto> getList1(BoardDto dto) {		
+		List<BoardDto> list=session.selectList("board.getList1", dto);		
+		return list;
+	}
 
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.project.board.dto.BoardDto;
 
-
 public interface BoardDao {
 	public void insert(BoardDto dto);
 	public void delete(int num);
@@ -15,6 +14,8 @@ public interface BoardDao {
 	public int getCount(BoardDto dto);
 	public int getSelect_list(int b_group);
 	public List<BoardDto> getTotal_image();
+	public int getCount1();
+	public List<BoardDto> getList1(BoardDto dto);
 }
 
 

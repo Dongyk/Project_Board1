@@ -17,7 +17,7 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-	
+
 	@RequestMapping("/board/board1")
 	public ModelAndView board(HttpServletRequest request, @RequestParam(defaultValue="1") int b_group){
 		ModelAndView mView = boardService.getList(request, b_group);
@@ -55,5 +55,16 @@ public class BoardController {
 		boardService.insert(request, dto);
 		
 		return "redirect:/board/board1.do?b_group="+b_group;
+	}
+
+	@RequestMapping("/board/total_board")
+	public ModelAndView list(HttpServletRequest request, @RequestParam(defaultValue="1") int pageNum){
+		
+		//글목록이 담겨 있는 ModelAndView 객체를 리턴 받는다.
+		ModelAndView mView=boardService.getList1(request, pageNum);
+		//뷰페이지의 정보 설정하고
+		mView.setViewName("board/total_board");
+		//리턴해준다.
+		return mView;
 	}
 }
