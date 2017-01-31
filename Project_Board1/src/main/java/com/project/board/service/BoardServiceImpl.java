@@ -1,15 +1,22 @@
 package com.project.board.service;
 
+import java.io.File;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.project.board.dao.BoardDao;
 import com.project.board.dto.BoardDto;
+
 
 @Controller
 public class BoardServiceImpl implements BoardService {
@@ -46,21 +53,49 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void insert(BoardDto dto) {
-		boardDao.insert(dto);
+	public void insert(HttpServletRequest request, BoardDto dto) {
 		
+		String realPath=request.getSession()
+				.getServletContext().getRealPath("/upload");
+		System.out.println(realPath);
+		
+		//MultipartFile 객체의 참조값 얻어오기
+		//FileDto 에 담긴 MultipartFile 객체의 참조값을 얻어온다.
+		MultipartFile mFile=dto.getmFile();
+		//원본 파일명
+		if(mFile != null){
+			System.out.println("mFile is not null");
+			String orgFileName=mFile.getOriginalFilename();
+			//파일 사이즈
+			long fileSize=mFile.getSize();
+			//저장할 파일의 상세 경로
+			String filePath=realPath+File.separator;
+			//디렉토리를 만들 파일 객체 생성
+			File file=new File(filePath);
+			if(!file.exists()){//디렉토리가 존재하지 않는다면
+				file.mkdir();//디렉토리를 만든다.
+			}
+			//파일 시스템에 저장할 파일명을 만든다. (겹치치 않게)
+			String saveFileName=System.currentTimeMillis()+orgFileName;
+			try{
+				//upload 폴더에 파일을 저장한다.
+				mFile.transferTo(new File(filePath+saveFileName));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			dto.setImage(filePath+saveFileName);
+		}
+		boardDao.insert(dto);
 	}
 
 	@Override
 	public void update(BoardDto dto) {
 		boardDao.update(dto);
-		
 	}
 
 	@Override
-	public void delelte(int num) {
+	public void delete(int num) {
 		boardDao.delete(num);
-		
 	}
 
 	@Override

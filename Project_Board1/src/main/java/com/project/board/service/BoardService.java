@@ -10,10 +10,10 @@ public interface BoardService {
 	public ModelAndView getList(HttpServletRequest request, int b_group);
 	
 	public ModelAndView insertForm(int b_group);
-	public void insert(BoardDto dto);
+	public void insert(HttpServletRequest reqeuest, BoardDto dto);
 	
 	public ModelAndView updateForm(HttpServletRequest request, int num);
 	public void update(BoardDto dto);
 	
-	public void delelte(int num);
+	public void delete(int num);
 }

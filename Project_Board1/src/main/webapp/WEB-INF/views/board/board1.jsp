@@ -51,8 +51,8 @@
 				</div><br/><br/>
 				</c:if>
 	        	<button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom" onclick="commend();">댓글</button> 			
-	   			<button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom" onclick="location.href='board_update.do?num=${tmp.num}';">수정</button> 
-	   			<button type="button" class="w3-btn w3-theme-d3 w3-margin-bottom" onclick="location.href='board_delete.do?num=${tmp.num}';">삭제</button> 
+	   			<button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom" onclick="location.href='board_update.do?b_group=${b_group }&num=${tmp.num}';">수정</button> 
+	   			<button type="button" class="w3-btn w3-theme-d3 w3-margin-bottom" onclick="location.href='board_delete.do?b_group=${b_group }&num=${tmp.num}';">삭제</button> 
 	   		</div>
 			</c:forEach>
 			
