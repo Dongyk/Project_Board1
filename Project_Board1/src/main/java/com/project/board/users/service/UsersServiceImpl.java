@@ -35,6 +35,12 @@ public class UsersServiceImpl implements UsersService{
 		
 		return success;
 	}
+	
+	@Override
+	public boolean isAdmin(UsersDto dto) {
+		boolean success =usersDao.isAdmin(dto);
+		return success;
+	}
 
 	@Override
 	public UsersDto getData(String id) {
@@ -51,8 +57,7 @@ public class UsersServiceImpl implements UsersService{
 
 	@Override
 	public List<UsersDto> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		return usersDao.getList();
 	}
 	
 }

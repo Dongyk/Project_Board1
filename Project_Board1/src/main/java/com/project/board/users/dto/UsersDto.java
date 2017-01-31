@@ -7,13 +7,15 @@ public class UsersDto {
 	private String email;
 	private String gender;
 	private String phone;
+	private String isAdmin;
 	private String regdate;
-	private String conn;
+	
+	
 	
 	public UsersDto(){}
 
-	public UsersDto(String id, String name, String pwd, String email, String gender, String phone, String regdate,
-			String conn) {
+	public UsersDto(String id, String name, String pwd, String email, String gender, String phone,String isAdmin ,String regdate
+			) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -22,7 +24,7 @@ public class UsersDto {
 		this.gender = gender;
 		this.phone = phone;
 		this.regdate = regdate;
-		this.conn = conn;
+		this.isAdmin = isAdmin;
 	}
 
 	public String getId() {
@@ -81,28 +83,14 @@ public class UsersDto {
 		this.regdate = regdate;
 	}
 
-	public String getConn() {
-		return conn;
+	public String getIsAdmin() {
+		return isAdmin;
 	}
 
-	public void setConn(String conn) {
-		this.conn = conn;
+	public void setIsAdmin(String isAdmin) {
+		this.isAdmin = isAdmin;
 	}
-	
-	
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	

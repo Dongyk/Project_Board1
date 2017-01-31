@@ -1,5 +1,6 @@
 package com.project.board.users.service;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,4 +14,5 @@ public interface UsersService {
 	public UsersDto getData(String id);
 	public void update(UsersDto dto);
 	public List<UsersDto> getList();
+	boolean isAdmin(UsersDto dto);
 }

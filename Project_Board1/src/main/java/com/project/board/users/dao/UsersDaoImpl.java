@@ -39,6 +39,16 @@ public class UsersDaoImpl implements UsersDao{
 			return true;
 		}
 	}
+	
+	@Override
+	public boolean isAdmin(UsersDto dto) {
+		String validAdmin = session.selectOne("users.isAdmin",dto);
+		if(validAdmin==null){
+			return false;
+		}else{
+			return true;
+		}
+	}
 
 	@Override
 	public UsersDto getData(String id) {
@@ -55,8 +65,9 @@ public class UsersDaoImpl implements UsersDao{
 
 	@Override
 	public List<UsersDto> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<UsersDto> list =session.selectList("users.getList");
+		
+		return list;
 	}
 
 }

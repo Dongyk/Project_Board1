@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<style>
+	#dragDiv{
+		width: 100%;
+	}
+</style>
 <!-- 로그인 창 -->
 <a id="login-link" title="Login" href="#login">
 	<c:choose>
@@ -11,10 +16,12 @@
    <div id="login-panel" style="width: 300px;">
    	<c:choose>
    		<c:when test="${empty id }">
-    		<form action="${pageContext.request.contextPath }/users/signin.do" method="post">
+    		<form id="loginForm" action="${pageContext.request.contextPath }/users/signin.do" method="post">
 	            <label>아이디: <input type="text" name="id" style="color: black;"/> </label>
 	            <label>비밀번호: <input type="password" name="pwd" style="color: black;"/> </label>
-	            <button type="submit" class="btn" style="color: black;">로그인</button>
+	            <div id="dragDiv" ondrop="drop()" ondragenter="return false;" ondragover="return false;">
+	            	<button type="submit" class="btn" style="color: black;" draggable="true" ondragstart="drag(this,event)">로그인</button>
+	            </div>
 	            <p>If you're not a user click sign up!</p><button id="signupBtn" class="btn" type="submit" style="color: black;">회원가입</button> <small>Press ESC to close</small>
 	        </form>
    		</c:when>
@@ -87,5 +94,20 @@
 		location.reload();
 	}
 	$("body").attr("onload","pagestart()");
-
+	
+	function drag(target,ev){
+		ev.dataTransfer.setData("text",target.id);
+	}
+	function drop(){
+		var loginText =$("#dragDiv").children().text();
+		if(loginText=="로그인"){
+			$("#dragDiv").children().text("관리자로그인");
+			$("#loginForm").attr("action","${pageContext.request.contextPath }/admin/adminLogin.do");
+		}else{
+			$("#dragDiv").children().text("로그인");
+			$("#loginForm").attr("action","${pageContext.request.contextPath }/users/signin.do")
+		}
+	}
+	
+	
 </script>

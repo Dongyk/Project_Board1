@@ -1,5 +1,7 @@
 package com.project.board.users.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.project.board.users.dto.UsersDto;
@@ -75,7 +78,23 @@ public class UsersController {
 		return new ModelAndView("redirect:/users/private/infoform.do?id="+dto.getId());
 	}
 	
+	@RequestMapping("/admin/adminLogin")
+	public String adminPage(@ModelAttribute UsersDto dto){
+		boolean success =usersService.isAdmin(dto);
+		if(success){
+			return "/admin/admin";
+		}else{
+			return "/home";
+		}	
+	}
 	
+	@RequestMapping("/admin/usersListAjax")
+	@ResponseBody
+	public List<UsersDto> getList(){
+		List<UsersDto> list = usersService.getList();
+		
+		return list;
+	}
 	
 }
 

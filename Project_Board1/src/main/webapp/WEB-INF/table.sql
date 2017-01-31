@@ -5,7 +5,7 @@ name VARCHAR2(50),
 email VARCHAR2(200),
 gender VARCHAR2(10),
 phone VARCHAR2(50),
-conn VARCHAR2(20) DEFAULT 'logout',
+isAdmin VARCHAR2(10),
 regdate DATE);
 
 CREATE TABLE users_msg

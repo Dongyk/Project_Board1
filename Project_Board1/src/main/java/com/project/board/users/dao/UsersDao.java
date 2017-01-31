@@ -11,4 +11,5 @@ public interface UsersDao {
 	public UsersDto getData(String id);
 	public void update(UsersDto dto);
 	public List<UsersDto> getList();
+	boolean isAdmin(UsersDto dto);
 }

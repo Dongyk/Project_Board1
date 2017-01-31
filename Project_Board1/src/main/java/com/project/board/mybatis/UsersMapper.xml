@@ -19,8 +19,15 @@
 		WHERE id = #{id} and pwd = #{pwd}
 	</select>
 	
+	<select id="isAdmin" parameterType="usersDto" resultType="String">
+		SELECT id
+		FROM users
+		WHERE id = #{id} and pwd = #{pwd}
+		and isAdmin is not null
+	</select>
+	
 	<select id="getData" parameterType="String" resultType="usersDto">
-		SELECT id,pwd,name,email,gender,phone,regdate
+		SELECT id,pwd,name,email,gender,phone,conn,isAdmin,regdate
 		FROM users
 		WHERE id = #{id}
 	</select>
@@ -30,5 +37,12 @@
 		SET pwd=#{pwd},name=#{name},email=#{email},gender=#{gender},phone=#{phone}
 		WHERE id = #{id}
 	</update>
+	
+	<select id="getList" resultType="usersDto">
+		SELECT id,name,email,gender,phone,regdate
+		FROM users
+		WHERE isAdmin is null
+		order by regdate DESC
+	</select>
 	
 </mapper> 
