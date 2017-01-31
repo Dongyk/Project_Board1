@@ -102,7 +102,7 @@
 		var loginText =$("#dragDiv").children().text();
 		if(loginText=="로그인"){
 			$("#dragDiv").children().text("관리자로그인");
-			$("#loginForm").attr("action","${pageContext.request.contextPath }/admin/adminLogin.do");
+			$("#loginForm").attr("action","${pageContext.request.contextPath }/admin/admin.do");
 		}else{
 			$("#dragDiv").children().text("로그인");
 			$("#loginForm").attr("action","${pageContext.request.contextPath }/users/signin.do")
