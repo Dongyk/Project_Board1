@@ -67,4 +67,31 @@ public class BoardController {
 		//리턴해준다.
 		return mView;
 	}
+	
+	@RequestMapping("/board/gallery")
+	public ModelAndView gallery(){
+		
+		ModelAndView mView=boardService.getTotal_image();
+		
+		mView.setViewName("board/gallery");
+		
+		return mView;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

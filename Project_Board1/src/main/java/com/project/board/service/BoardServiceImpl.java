@@ -178,5 +178,14 @@ public class BoardServiceImpl implements BoardService {
 		return mView;
 	}
 
-
+	@Override
+	public ModelAndView getTotal_image() {
+		
+		List<BoardDto> list=boardDao.getTotal_image();
+	
+		ModelAndView mView=new ModelAndView();
+		mView.addObject("list", list);
+		
+		return mView;
+	}
 }

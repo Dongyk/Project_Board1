@@ -16,6 +16,7 @@ public interface BoardDao {
 	public List<BoardDto> getTotal_image();
 	public int getCount1();
 	public List<BoardDto> getList1(BoardDto dto);
+
 }
 
 
