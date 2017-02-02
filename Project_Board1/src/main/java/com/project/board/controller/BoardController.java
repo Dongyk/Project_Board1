@@ -50,8 +50,6 @@ public class BoardController {
 	@RequestMapping("/board/upload_comm")
 	public String insert (HttpServletRequest request, @ModelAttribute BoardDto dto){
 		String b_group = ""+dto.getB_group();
-		System.out.println("b_group : " + b_group);
-		dto.setWriter("DK");
 		boardService.insert(request, dto);
 		
 		return "redirect:/board/board1.do?b_group="+b_group;
