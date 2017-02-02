@@ -12,7 +12,7 @@
 <h3>관리자 페이지</h3>
 <p>유저 목록</p>
 <button id="usersListBtn">목록보기</button>
-<table id="listTable" style="display: none;">
+<table id="listTable" style="display: none;" border="1">
 	<thead>
 		<tr>
 			<th>id</th>
@@ -21,6 +21,7 @@
 			<th>gender</th>
 			<th>phone</th>
 			<th>regdate</th>
+			<th>작성한 글</th>
 		</tr>
 	</thead>
 	<tbody id="pp">
@@ -45,6 +46,7 @@
 					$("<td/>").appendTo("#pp").text(data[i].gender);
 					$("<td/>").appendTo("#pp").text(data[i].phone);
 					$("<td/>").appendTo("#pp").text(data[i].regdate);
+					$("<td/>").appendTo("#pp").text(data[i].getBoardCount+" 개");
 					$("</tr>").appendTo("#pp");
 				}
 			}

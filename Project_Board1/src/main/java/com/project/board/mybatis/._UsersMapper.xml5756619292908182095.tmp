@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+	<insert id="insert" parameterType="usersDto">
+		INSERT INTO users
+		(id,pwd,name,email,gender,phone,regdate)
+		VALUES (#{id},#{pwd},#{name},#{email},#{gender},
+		#{phone},SYSDATE)
+	</insert>
+	<select id="existId" parameterType="String" resultType="String">
+		SELECT id 
+		FROM users
+		WHERE id = #{id}
+	</select>
+	
+	<select id="isValid" parameterType="usersDto" resultType="String">
+		SELECT id
+		FROM users
+		WHERE id = #{id} and pwd = #{pwd}
+	</select>
+	
+	<select id="isAdmin" parameterType="usersDto" resultType="String">
+		SELECT id
+		FROM users
+		WHERE id = #{id} and pwd = #{pwd}
+		and isAdmin is not null
+	</select>
+	
+	<select id="getData" parameterType="String" resultType="usersDto">
+		SELECT id,pwd,name,email,gender,phone,conn,isAdmin,regdate
+		FROM users
+		WHERE id = #{id}
+	</select>
+	
+	<update id="update" parameterType="usersDto">
+		UPDATE users
+		SET pwd=#{pwd},name=#{name},email=#{email},gender=#{gender},phone=#{phone}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="getList" resultType="usersDto">
+		SELECT id,name,email,gender,phone,regdate,(select NVL(MAX(ROWNUM), 0) FROM t_board WHERE writer = id) getBoardCount
+		FROM users
+		WHERE isAdmin is null
+		order by regdate DESC
+	</select>
+	
+</mapper> 
