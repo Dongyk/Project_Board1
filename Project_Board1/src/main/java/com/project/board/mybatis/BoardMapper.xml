@@ -1,5 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
-
+	<insert id="insert" parameterType="boardDto">
+		INSERT INTO t_board
+		(num, b_group, writer, title, content, image, regdate)
+		VALUES(t_board_seq.NEXTVAL, #{b_group}, #{writer}, #{title}, #{content},
+		#{image}, SYSDATE)
+		
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM t_board
+		WHERE num=#{num}
+	</delete>
+	<delete id="total_delete" parameterType="String">
+		DELETE FROM t_board
+		WHERE writer=#{writer}
+	</delete>
+	<update id="update" parameterType="boardDto">
+		UPDATE t_board
+		SET title=#{title}, image=#{image}, content=#{content}
+		WHERE num=#{num}
+	</update>
+	<select id="getData" parameterType="boardDto" resultType="boardDto">
+		SELECT result1.*
+		FROM 
+			(SELECT num, b_group, writer, title, content, image, regdate, 
+			LAG(num, 1, 0) OVER(ORDER BY num DESC) AS prevNum,
+			LEAD(num, 1, 0) OVER(ORDER BY num DESC) AS nextNum
+			FROM t_board
+			<where>
+			  	<if test="writer != null">
+			  		OR writer LIKE '%'||#{writer}||'%'
+			  	</if>
+			  	<if test="title != null">
+			  		OR title LIKE '%'||#{title}||'%'
+			  	</if>
+			  	<if test="content != null">
+			  		OR content LIKE '%'||#{content}||'%'
+			  	</if>
+			</where>
+			ORDER BY num DESC) result1
+		WHERE num=#{num}
+	</select>
+	<select id="getList" parameterType="boardDto" resultType="boardDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM rnum
+			FROM (SELECT num,b_group,writer,title,content, image, regdate
+				  FROM t_board
+					<where>
+						<if test="writer != null">
+							OR writer LIKE '%'||#{writer}||'%'
+						</if>
+						<if test="title != null">
+							OR title LIKE '%'||#{title}||'%'
+						</if>
+						<if test="content != null">
+							OR content LIKE '%'||#{content}||'%'
+						</if>
+					</where>
+				  ORDER BY num DESC
+				  ) result1
+			)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum} 
+	</select>
+	<select id="getSelList" parameterType="boardDto" resultType="boardDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM rnum
+			FROM (SELECT num,b_group,writer,title,content, image, regdate
+				  FROM t_board
+				  <where>
+				  	<if test="b_group != null">
+				  		OR b_group=#{b_group}
+				  	</if>
+				  </where>
+				  ORDER BY num DESC
+				  ) result1
+			)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum} 
+	</select>
+	
+	<select id="getCount" parameterType="boardDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM t_board
+		<where>
+		  	<if test="writer != null">
+		  		OR writer LIKE '%'||#{writer}||'%'
+		  	</if>
+		  	<if test="title != null">
+		  		OR title LIKE '%'||#{title}||'%'
+		  	</if>
+		  	<if test="content != null">
+		  		OR content LIKE '%'||#{content}||'%'
+		  	</if>
+		</where>
+	</select>
+	<select id="getTotal_image" resultType="boardDto">
+		SELECT image
+		FROM t_board
+		ORDER BY num DESC
+	</select>
+	
+	<!-- 오류날 가능성이 큼 -->
+	<select id="getSelect_list" parameterType="int" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM (SELECT * 
+			FROM t_board
+			WHERE b_group = #{b_group} 
+			ORDER BY regdate DESC)
+	</select>
+	<select id="getList1" parameterType="com.project.board.dto.BoardDto" resultType="com.project.board.dto.BoardDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM rnum
+			FROM (SELECT num,b_group,writer,title,content, image, regdate
+				  FROM t_board
+					<where>
+						<if test="writer != null">
+							OR writer LIKE '%'||#{writer}||'%'
+						</if>
+						<if test="title != null">
+							OR title LIKE '%'||#{title}||'%'
+						</if>
+						<if test="content != null">
+							OR content LIKE '%'||#{content}||'%'
+						</if>
+					</where>
+				  ORDER BY num DESC
+				  ) result1
+			)
+		WHERE
+		<![CDATA[ rnum >= #{startRowNum} AND rnum <= #{endRowNum} ]]>
+	</select>
+	<select id="getCount1" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM t_board	
+	</select>		
 </mapper>

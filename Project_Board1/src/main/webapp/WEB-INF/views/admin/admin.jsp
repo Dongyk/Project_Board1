@@ -29,7 +29,7 @@
 </table>
 <script>
 	$("#usersListBtn").click(function(){
-		
+	
 		$.ajax({
 			url:"usersListAjax.do",
 			method:"post",

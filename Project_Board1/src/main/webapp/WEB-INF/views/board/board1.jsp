@@ -24,6 +24,10 @@
 		margin-top: 10px;
 		margin-left: 10px;
 	}
+
+	.commend_list{
+		
+	}
 </style>
 <jsp:include page="/myresource.jsp"></jsp:include>
 <body>
@@ -40,29 +44,39 @@
 	        	<h4>${tmp.writer } 님 ${tmp.title }</h4><br>
 	       		<hr class="w3-clear">
 	        	<p>${tmp.content }</p>
-	        	<c:set var="tmp1" value="${fn:substring(tmp.image, fn:length(tmp.image)-4, fn:length(tmp.image)-3)}"/>
-	    		<c:set var="tmp2" value="${fn:substring(tmp.image, fn:length(tmp.image)-5, fn:length(tmp.image)-4)}"/>
-	    		<c:if test="${tmp1 eq '.'}">
+	        	<c:set var="tmp1" value="${fn:substring(tmp.image, fn:length(tmp.image)-4, fn:length(tmp.image))}"/>
+	    		<c:set var="tmp2" value="${fn:substring(tmp.image, fn:length(tmp.image)-5, fn:length(tmp.image))}"/>
+	    		<c:if test="${tmp1 eq '.png' || tmp1 eq '.jpg'}">
 	          	<div class="imgContents">
 					<img class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px;" src="${pageContext.request.contextPath }/upload/${tmp.image}" />
 				</div><br/><br/>
 				</c:if>
-				<c:if test="${tmp2 eq '.'}">
+				<c:if test="${tmp2 eq '.jpeg'}">
 	          	<div class="imgContents">
 					<img class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px;" src="${pageContext.request.contextPath }/upload/${tmp.image}" />
 				</div><br/><br/>
 				</c:if>
-				<div class="commend_div">
-					<button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom">댓글</button>
+				<div class="commend_div" style="display:none;">
+					<input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" type="text" id="content" name="content" maxlength="14"/>
+					<button id="enrollBtn">등록</button>	
+	   				
+	   				
+	   				<input type="hidden" id="writer" value="${id }"/>
+	   				<input type="hidden" id="ref_group" value="${tmp.num }"/>
+	   				<input type="hidden" id="target_id" value="${tmp.writer }"/>
+				</div>
+				<div class="commend_list" style="display:none;">
 				
 				</div>
 				<c:if test="${id ne null}">
-	        	<button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom" onclick="commend();">댓글</button> 
+	        	<button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom" id="commBtn">댓글</button> 
 	   			</c:if>
 	   			<c:if test="${id eq tmp.writer }">
-	   			<button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom" onclick="location.href='board_update.do?num=${tmp.num}';">수정</button> 
-	   			<button type="button" class="w3-btn w3-theme-d3 w3-margin-bottom" onclick="location.href='board_delete.do?num=${tmp.num11}';">삭제</button> 
+	   			<button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom" onclick="location.href='board_updateform.do?num=${tmp.num}';">수정</button> 
+	   			<button type="button" class="w3-btn w3-theme-d3 w3-margin-bottom" onclick="location.href='board_delete.do?num=${tmp.num}';">삭제</button> 
 	   			</c:if>
+	   		
+	   			
 	   		</div>
 			</c:forEach>
 			<c:if test="${endPageNum lt endRowNum }">
@@ -75,15 +89,64 @@
 </div>
 </body>
 <script>
-function commend(){
-//	$(".commend_div").hide();
-	alert($(this).val());
-};
-function update(){
+$("#commBtn").on('click', function(){
+	var object = $(this).siblings(".commend_div");
+	var ref_group = $(this).siblings(".commend_div").children("#ref_group").val();
 	
-};
-function del(){
+	if(object.css("display") == "none"){
+
+		object.show();
+		$(this).siblings(".commend_list").show();
+		$.ajax({
+			url:"comm_list.do",
+			method:"post",
+			dataType:"JSON",
+			data:{
+				ref_group:ref_group			
+			},
+			success:function(data){
+				console.log(data);
+			}
+			,error:function(request,status,error){
+		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    }
+		});
+		
+	}else{
+		object.hide();
+		$(this).siblings(".commend_list").hide();
+	}	
+});
+
+$("#enrollBtn").on("click", function(){
+	var object = $(this).parent().siblings(".commend_list");
 	
-};
+	var writer = $(this).siblings("#writer").val();
+	var ref_group = $(this).siblings("#ref_group").val();
+	var target_id = $(this).siblings("#target_id").val();
+	var content = $(this).siblings("#content").val();
+	
+	if(content != null && content != ""){
+		$.ajax({
+			url:"comm_insert.do",
+			method:"get",
+			dataType:"JSON",
+			data:{
+				writer:writer,
+				ref_group:ref_group,
+				target_id:target_id,
+				content:content					
+			},
+			success:function(){
+				$(this).siblings("#content").val("");
+				object.append("<span>${id}"+content+
+					"<a href=''>수정</a><a href=''>삭제</a></span>");
+			}	
+		});
+	}else{
+		alert("내용을 입력해주세요");
+	}
+});
+
 </script>
 </html>

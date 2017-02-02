@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">	
-	<title>/home.jsp</title>
+<meta charset="UTF-8">	
+<title>/home.jsp</title>
 <jsp:include page="/myresource.jsp"></jsp:include>
 </head>
 <body>
