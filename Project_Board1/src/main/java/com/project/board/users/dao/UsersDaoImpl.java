@@ -66,7 +66,6 @@ public class UsersDaoImpl implements UsersDao{
 	@Override
 	public List<UsersDto> getList() {
 		List<UsersDto> list =session.selectList("users.getList");
-		
 		return list;
 	}
 

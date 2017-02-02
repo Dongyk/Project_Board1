@@ -39,7 +39,7 @@
 	</update>
 	
 	<select id="getList" resultType="usersDto">
-		SELECT id,name,email,gender,phone,regdate
+		SELECT id,name,email,gender,phone,regdate,(select NVL(MAX(ROWNUM), 0) FROM t_board WHERE writer = id) getBoardCount
 		FROM users
 		WHERE isAdmin is null
 		order by regdate DESC
