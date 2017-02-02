@@ -9,9 +9,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="board_update.do?b_group=${dto.b_group }" method="post">
+<form action="board_update.do" method="post">
 	<input type="hidden" name="num" id="num" value="${dto.num }" />
 	<input type="hidden" name="writer" id="writer" value="${dto.writer }"/><br/>
+	<input type="hidden" name="b_group" value="${dto.b_group }" />
 	
 	<label for="writer">작성자</label>
 	<input type="text" value="${dto.writer }" disabled/><br/>

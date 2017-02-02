@@ -87,7 +87,7 @@ public class BoardServiceImpl implements BoardService {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			dto.setImage(filePath+saveFileName);
+			dto.setImage(saveFileName);
 		}
 		boardDao.insert(dto);
 	}
@@ -103,7 +103,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ModelAndView updateForm(HttpServletRequest request, int num) {
+	public ModelAndView updateForm(int num) {
 		//수정할 글정보를 얻어온다. 
 		BoardDto dto=boardDao.getData(num);
 		//수정할 글정보를 ModelAndView 객체에 담고 

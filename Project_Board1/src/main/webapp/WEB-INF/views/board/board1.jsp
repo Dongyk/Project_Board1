@@ -72,8 +72,8 @@
 	        	<button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom" id="commBtn">댓글</button> 
 	   			</c:if>
 	   			<c:if test="${id eq tmp.writer }">
-	   			<button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom" onclick="location.href='board_updateform.do?num=${tmp.num}';">수정</button> 
-	   			<button type="button" class="w3-btn w3-theme-d3 w3-margin-bottom" onclick="location.href='board_delete.do?num=${tmp.num}';">삭제</button> 
+	   			<button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom" onclick="location.href='board_updateform.do?num=${tmp.num}&b_group=${b_group }';">수정</button> 
+	   			<button type="button" class="w3-btn w3-theme-d3 w3-margin-bottom" onclick="location.href='board_delete.do?num=${tmp.num}&b_group=${b_group }';">삭제</button> 
 	   			</c:if>
 	   		
 	   			

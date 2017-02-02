@@ -15,7 +15,7 @@ public interface BoardService {
 	public ModelAndView insertForm(int b_group);
 	public void insert(HttpServletRequest reqeuest, BoardDto dto);
 	
-	public ModelAndView updateForm(HttpServletRequest request, int num);
+	public ModelAndView updateForm(int num);
 	public void update(BoardDto dto);
 	
 	public void delete(int num);
