@@ -33,14 +33,26 @@ public class BoardController {
 		return mView;
 	}
 	
-	@RequestMapping("/board/board_update")
-	public ModelAndView update(HttpServletRequest request, @RequestParam int num){
-		ModelAndView mView = boardService.updateForm(request, num);
+	@RequestMapping("/board/board_updateform")
+	public ModelAndView updateform(@RequestParam int num){
+		ModelAndView mView = boardService.updateForm(num);
 		mView.setViewName("board/updateform");
 		return mView;
 	}
+	
+	@RequestMapping("/board/board_update")
+	public ModelAndView update(HttpServletRequest request, @ModelAttribute BoardDto dto){
+		boardService.update(dto);
+		ModelAndView mView = boardService.getList(request, dto.getB_group());
+		mView.addObject("b_group", dto.getB_group());
+		mView.setViewName("board/board1");
+		
+		return mView;
+	}
+	
+	
 	@RequestMapping("/board/board_delete")
-	public ModelAndView delete	(HttpServletRequest request, @RequestParam int b_group, @RequestParam(defaultValue="1") int num){
+	public ModelAndView delete	(HttpServletRequest request, @RequestParam int b_group, @RequestParam int num){
 		boardService.delete(num);
 		ModelAndView mView=boardService.getList(request, b_group);
 		mView.addObject("b_group", b_group);

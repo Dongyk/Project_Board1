@@ -18,30 +18,15 @@
 	</delete>
 	<update id="update" parameterType="boardDto">
 		UPDATE t_board
-		SET title=#{title}, image=#{image}, content=#{content}
+		SET title=#{title}, content=#{content}
 		WHERE num=#{num}
 	</update>
-	<select id="getData" parameterType="boardDto" resultType="boardDto">
-		SELECT result1.*
-		FROM 
-			(SELECT num, b_group, writer, title, content, image, regdate, 
-			LAG(num, 1, 0) OVER(ORDER BY num DESC) AS prevNum,
-			LEAD(num, 1, 0) OVER(ORDER BY num DESC) AS nextNum
-			FROM t_board
-			<where>
-			  	<if test="writer != null">
-			  		OR writer LIKE '%'||#{writer}||'%'
-			  	</if>
-			  	<if test="title != null">
-			  		OR title LIKE '%'||#{title}||'%'
-			  	</if>
-			  	<if test="content != null">
-			  		OR content LIKE '%'||#{content}||'%'
-			  	</if>
-			</where>
-			ORDER BY num DESC) result1
-		WHERE num=#{num}
-	</select>
+	<select id="getData" parameterType="int" resultType="boardDto">
+      SELECT num,writer,title,content, b_group, image,
+      TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate
+      FROM t_board
+      WHERE num=#{num}
+   	</select>
 	<select id="getList" parameterType="boardDto" resultType="boardDto">
 		SELECT *
 		FROM
